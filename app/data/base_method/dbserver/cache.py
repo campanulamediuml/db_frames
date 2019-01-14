@@ -117,6 +117,10 @@ class cached_base(object):
 
         return result
         # 获取表格名称
+    def refresh_one_table(self,table):
+        # self.data_all.pop(table)
+        self.data_all[table] = Data.select(table,[])
+
 
     def cache_dumps(self):
         content = json.dumps(self.data_all)
@@ -146,4 +150,8 @@ class cached_base(object):
         return result
         # 查询多条
 
+    def instert(self, table, content, isCommit = True):
+        Data.insert(table, content)
+        self.refresh_one_table(table)
+            
         
