@@ -89,7 +89,7 @@ judge_dict = {
 
 class cached_base(object):
     def __init__(self):  
-        self.data_all = get_all_data()
+        self.data_all = {}
 
         IntervalTask(1, self.refresh_db)
 
@@ -107,8 +107,11 @@ class cached_base(object):
         return
 
     def get_base(self):
-        return self.data_all
+        return get_all_data()
         # 提取整个数据库
+
+    def get_cached_base(self):
+        return self.data_all
 
     def get_tables(self):
         result = []
@@ -129,6 +132,9 @@ class cached_base(object):
 
 
     def find(self,table,conditions,fields = '*'):
+        if table not in self.data_all:
+            self.data_all[table] = Data.select(table,[])
+
         table_content = self.data_all[table]
 
         is_return = 0
@@ -139,6 +145,9 @@ class cached_base(object):
         # 查询
 
     def select(self,table,conditions,fields = '*'):
+        if table not in self.data_all:
+            self.data_all[table] = Data.select(table,[])
+
         table_content = self.data_all[table]
 
         is_return = 0
@@ -152,6 +161,7 @@ class cached_base(object):
 
     def instert(self, table, content, isCommit = True):
         Data.insert(table, content)
-        self.refresh_one_table(table)
+        if table in self.data_all:
+            self.refresh_one_table(table)
             
         
