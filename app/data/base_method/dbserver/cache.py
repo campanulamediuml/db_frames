@@ -123,13 +123,20 @@ class cached_base(object):
     def refresh_one_table(self,table):
         # self.data_all.pop(table)
         self.data_all[table] = Data.select(table,[])
+        return
 
+    def append_lines(self,table):
+        last_id = table[-1]['id']
+        res = Data.select(table,[('id','>',last_id)])
+        self.data_all[table] = self.data_all[table]+res
+        return 
+        # 添加新的行
 
     def cache_dumps(self):
         content = json.dumps(self.data_all)
         open('base_dump.dumps','w').write(content)
         return
-
+        # 缓存成json
 
     def find(self,table,conditions,fields = '*'):
         if table not in self.data_all:
@@ -162,6 +169,10 @@ class cached_base(object):
     def instert(self, table, content, isCommit = True):
         Data.insert(table, content)
         if table in self.data_all:
-            self.refresh_one_table(table)
+            self.append_lines(table)
+            # self.refresh_one_table(table)
+        # 插入数据后更新数据
+
+    def update()
             
         
