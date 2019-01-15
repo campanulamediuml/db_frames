@@ -81,7 +81,7 @@ class Base(object):
             sql = sql[:-7]
 
         if order is not None:
-            sql += ' order by %s %s ' % (order[0], order[1])
+            sql += 'order by %s %s ' % (order[0], order[1])
 
         res = self.query(sql)
         if res is None:

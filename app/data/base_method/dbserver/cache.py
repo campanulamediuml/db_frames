@@ -113,22 +113,27 @@ class cached_base(object):
     def get_cached_base(self):
         return self.data_all
 
-    def get_tables(self):
+    def get_table_names(self):
         result = []
         for table in self.data_all:
             result.append(table)
 
         return result
+
         # 获取表格名称
     def refresh_one_table(self,table):
         # self.data_all.pop(table)
+        print('importing..',table)
         self.data_all[table] = Data.select(table,[])
+        print('importing..',table,'done!')
         return
 
     def append_lines(self,table):
         last_id = table[-1]['id']
         res = Data.select(table,[('id','>',last_id)])
-        self.data_all[table] = self.data_all[table]+res
+        if res != None:
+            if len(res) != 0:
+                self.data_all[table] = self.data_all[table]+res
         return 
         # 添加新的行
 
@@ -138,31 +143,33 @@ class cached_base(object):
         return
         # 缓存成json
 
-    def find(self,table,conditions,fields = '*'):
+    def find(self,table,conditions):
         if table not in self.data_all:
-            self.data_all[table] = Data.select(table,[])
+            self.refresh_one_table(table)
 
         table_content = self.data_all[table]
 
-        is_return = 0
+        
         for line in table_content:
             if judge(line,conditions) == True:
                 return line
         return {}
         # 查询
 
-    def select(self,table,conditions,fields = '*'):
+    def select(self,table,conditions):
         if table not in self.data_all:
-            self.data_all[table] = Data.select(table,[])
+            self.refresh_one_table(table)
 
         table_content = self.data_all[table]
-
-        is_return = 0
+        
         result = []
+        if conditions == []:
+            return table_content
+
         for line in table_content:
             if judge(line,conditions) == True:
                 result.append(line)
-        
+
         return result
         # 查询多条
 
@@ -170,9 +177,9 @@ class cached_base(object):
         Data.insert(table, content)
         if table in self.data_all:
             self.append_lines(table)
-            # self.refresh_one_table(table)
+            
         # 插入数据后更新数据
 
-    def update()
+    # def update()
             
         

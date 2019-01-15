@@ -12,9 +12,9 @@ class Cache(object):
         return Cache.base.cache_dumps()
 
     @staticmethod
-    def find(table,conditions,fields = '*'):
-        return Cache.base.find(table,conditions,fields)
+    def find(table,conditions):
+        return Cache.base.find(table,conditions)
 
     @staticmethod
-    def select(table, conditions, fields='*'):
-        return Cache.base.select(table, conditions, fields)
+    def select(table, conditions):
+        return Cache.base.select(table, conditions)
