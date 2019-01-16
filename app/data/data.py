@@ -18,3 +18,7 @@ class Cache(object):
     @staticmethod
     def select(table, conditions):
         return Cache.base.select(table, conditions)
+
+    @staticmethod
+    def insert(table, params):
+        return Cache.base.insert(table, params)

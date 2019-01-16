@@ -19,8 +19,8 @@ class Data(object):
         return Data.sql.find(table, conditions, fields)
 
     @staticmethod
-    def select(table, conditions, fields='*',order=None):
-        return Data.sql.select(table, conditions, fields,order)
+    def select(table, conditions, fields='*',order=None, choose='and'):
+        return Data.sql.select(table, conditions, fields,order,choose)
 
     @staticmethod
     def update(table, conditions, params, is_commit = True):

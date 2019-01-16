@@ -129,7 +129,7 @@ class cached_base(object):
         return
 
     def append_lines(self,table):
-        last_id = table[-1]['id']
+        last_id = self.data_all[table][-1]['id']
         res = Data.select(table,[('id','>',last_id)])
         if res != None:
             if len(res) != 0:
@@ -172,14 +172,44 @@ class cached_base(object):
         return result
         # 查询多条
 
-    def insert(self, table, content, isCommit = True):
-        Data.insert(table, content)
+    def insert(self,table,content):
+        Data.insert(table,content)
         if table in self.data_all:
             self.append_lines(table)
         else:
             self.refresh_one_table(table)
 
         return
+
+    def update(self,table,conditions,params):
+        if table in self.data_all:
+            table_content = self.data_all[table]
+
+            table_id_list = []
+            tmp = []
+            if conditions == []:
+                for line in table_content:
+                    table_id_list.append(line['id'])
+                    tmp.append(line)
+
+            else:
+                for line in table_content:
+                    if judge(line,conditions) == True:
+                        result.append(line['id'])
+                        tmp.append(line)
+
+            Data.update(table,conditions,params)
+
+            for line in tmp:
+                self.data_all[table].remove(line)
+            
+
+
+
+
+
+
+
             
         # 插入数据后更新数据
 

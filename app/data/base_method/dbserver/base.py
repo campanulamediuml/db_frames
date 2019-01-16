@@ -66,14 +66,14 @@ class Base(object):
         return dict(zip(fieldList, res[0]))
 
     # 查找数据
-    def select(self, table, conditions, fields='*', order=None):
+    def select(self, table, conditions, fields='*', order=None ,choose ='and'):
         sql = 'select %s from %s where  ' % (fields, table)
         for unit in conditions:
             value =  unit[2]
             if type("") == type(value):
                 value = "'%s'" % value
 
-            sql = sql + "%s %s %s " % (unit[0], unit[1], value) + " and "
+            sql = sql + "%s %s %s " % (unit[0], unit[1], value) + choose
 
         if 0 < len(conditions):
             sql = sql[0: -4]
@@ -128,7 +128,7 @@ class Base(object):
                 keys = keys[:-2] + ")"
                 values = values[:-2] + ")"
 
-            sql += 'insert into %s%s values %s ;' % (table, keys, values)
+            sql = 'insert into %s%s values %s ;' % (table, keys, values)
             self.query(sql)
             if True == isCommit:
                 self.db.commit()
