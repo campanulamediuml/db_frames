@@ -103,7 +103,7 @@ class Base(object):
         self.db.commit()
         return result
 
-    def instert(self, table, content, isCommit = True):
+    def insert(self, table, content, isCommit = True):
         if type(content) == type([]):
             sql = ''
             for params in content:

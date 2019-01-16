@@ -12,7 +12,7 @@ class Data(object):
 
     @staticmethod
     def insert(table, params, is_commit = True):
-        return Data.sql.instert(table, params, is_commit)
+        return Data.sql.insert(table, params, is_commit)
 
     @staticmethod
     def find(table, conditions, fields = '*'):

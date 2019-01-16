@@ -10,13 +10,13 @@ def time_to_str(times):
 
 
 def bigger(line,conditions):
-    if line[column] > conditions[2]:
+    if line[conditions[0]] > conditions[2]:
         return True
     else:
         return False
 
 def small(line,conditions):
-    if line[column] < conditions[2]:
+    if line[conditions[0]] < conditions[2]:
         return True
     else:
         return False
@@ -148,7 +148,6 @@ class cached_base(object):
             self.refresh_one_table(table)
 
         table_content = self.data_all[table]
-
         
         for line in table_content:
             if judge(line,conditions) == True:
@@ -173,10 +172,14 @@ class cached_base(object):
         return result
         # 查询多条
 
-    def instert(self, table, content, isCommit = True):
+    def insert(self, table, content, isCommit = True):
         Data.insert(table, content)
         if table in self.data_all:
             self.append_lines(table)
+        else:
+            self.refresh_one_table(table)
+
+        return
             
         # 插入数据后更新数据
 
