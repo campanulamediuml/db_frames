@@ -34,4 +34,5 @@ for i in res:
 
 # Cache.cache_dumps()
 
-input('press any key to exit')
+# input('press any key to exit')
+# 
