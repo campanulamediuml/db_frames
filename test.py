@@ -3,8 +3,10 @@ from app.data.server import Data
 import time
 
 time_1 = time.time()
+
 res = Cache.select('sb_log',[('id','>',10000)])
 print(len(res))
+
 print('第一次读取缓存大表用时:',time_1-time.time())
 # for i in res:
 #     print(i)
@@ -36,3 +38,10 @@ for i in res:
 
 # input('press any key to exit')
 # 
+
+a = '''ffdfsdf
+dfsdfsdfsdfsd
+fsdfdsfsdf
+dsfdsfdsfsd
+fsdfdsfsd
+sdfdfdsfdsfd'''
