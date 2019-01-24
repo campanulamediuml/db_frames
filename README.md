@@ -13,7 +13,9 @@ res == {key1:value1,key2:value2,...}
 
 
 res = insert('table',{key1:value1,key2:value2,...})
+
 res = delete('table',[('col','=','xx')])
+
 res = update('table',[('col','=','xx')],{key1:value1,key2:value2,...})
 
 
