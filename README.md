@@ -7,10 +7,12 @@
 
 接口：
 res = select('table',[('col','=','xx')])
+
 res == [{key1:value1,key2:value2,...},{key1:value1,key2:value2,...}]
 
 
 res = find('table',[('col','=','xx')])
+
 res == {key1:value1,key2:value2,...}
 
 
