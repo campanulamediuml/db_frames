@@ -3,6 +3,8 @@
 
 调用from app.data.server import Data进行对数据库的直接操作
 
+单次读取数据小于2万条不建议使用缓存
+
 接口：
 res = select('table',[('col','=','xx')])
 res == [{key1:value1,key2:value2,...},{key1:value1,key2:value2,...}]
