@@ -2,3 +2,19 @@
 
 
 调用from app.data.server import Data进行对数据库的直接操作
+
+接口：
+res = select('table',[('col','=','xx')])
+res == [{key1:value1,key2:value2,...},{key1:value1,key2:value2,...}]
+
+
+res = find('table',[('col','=','xx')])
+res == {key1:value1,key2:value2,...}
+
+
+res = insert('table',{key1:value1,key2:value2,...})
+res = delete('table',[('col','=','xx')])
+res = update('table',[('col','=','xx')],{key1:value1,key2:value2,...})
+
+
+
