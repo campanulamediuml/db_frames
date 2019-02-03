@@ -195,14 +195,55 @@ class cached_base(object):
             else:
                 for line in table_content:
                     if judge(line,conditions) == True:
-                        result.append(line['id'])
+                        table_id_list.append(line['id'])
                         tmp.append(line)
 
             Data.update(table,conditions,params)
 
             for line in tmp:
                 self.data_all[table].remove(line)
-            
+
+            for i in table_id_list:
+                res = Data.find(table,[('id','=',i)])
+                for line in table_content:
+                    if line['id'] > res['id']:
+                        line_index = table_content.index(line)
+                        if line_index == 0:
+                            tail = [res]+table_content
+                        else:
+                            tail = table_content[:line_index] + [res] + table_content[line_index:]
+                        break
+                table_content = tail
+
+            self.data_all[table] = table_content
+
+
+        else:
+            Data.update(table,conditions,params)
+            self.data_all[table] = Data.select(table,[])
+
+        return
+
+    def delete(self,table,conditions):
+        if table in self.data_all:
+            table_content = self.data_all[table]
+
+            del_line = []
+
+            for line in table_content:
+                if judge(line,conditions) == True:
+                    del_line.append(line)
+
+            for i in del_line:
+                table_content.remove(i)
+
+            Data.delete(table,conditions)
+
+        else:
+            Data.delete(table,conditions)
+            self.data_all[table] = Data.select(table,[])
+
+        return
 
 
 
@@ -211,8 +252,9 @@ class cached_base(object):
 
 
             
-        # 插入数据后更新数据
 
-    # def update()
+
+
+
             
         
