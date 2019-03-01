@@ -44,3 +44,8 @@ class Data(object):
         # print(sql)
         return Data.sql.query(sql)
 
+    @staticmethod
+    def truncate(table):
+        # print(sql)
+        return Data.sql.truncate(table)
+

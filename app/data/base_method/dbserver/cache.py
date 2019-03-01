@@ -245,6 +245,19 @@ class cached_base(object):
 
         return
 
+    def truncate(self,table):
+        if table in self.data_all:
+            self.data_all[table] = []
+
+        else:
+            self.data_all[table] = []
+
+        Data.truncate(table)
+
+        return
+
+
+
 
 
 

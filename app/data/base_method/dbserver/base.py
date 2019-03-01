@@ -133,6 +133,8 @@ class Base(object):
             if True == isCommit:
                 self.db.commit()
 
+        return
+
 
 
     def update(self, table, conditions, params, isCommit = True):
@@ -160,6 +162,8 @@ class Base(object):
         if True == isCommit:
             self.db.commit()
 
+        return
+
     def delete(self, table, condition, is_commit):
         sql = 'delete from %s where ' % table
         for unit in condition:
@@ -178,6 +182,8 @@ class Base(object):
         if is_commit is True:
             self.db.commit()
 
+        return
+
     def query(self, sql):
         self.db.ping(reconnect=True)
         # cur.execute(sql)
@@ -186,7 +192,14 @@ class Base(object):
         cursor.execute(sql)
         results = cursor.fetchall()
         return results
-    
+
+
+    def truncate(self, table):
+        sql = 'TRUNCATE TABLE %s'%table
+        self.query(sql)
+
+        return
+            
 
 
 
